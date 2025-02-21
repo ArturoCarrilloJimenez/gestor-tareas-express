@@ -1,0 +1,99 @@
+<div class="container w-50 mt-5">
+  <mat-card appearance="raised" class="p-4 shadow">
+    <h3 class="text-center mb-3 text-primary">Register</h3>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="error" class="text-danger mb-3 text-center">
+      {{ error() }}
+    </div>
+
+    <form class="example-form" (ngSubmit)="register()">
+      <!-- Usuario -->
+      <mat-form-field class="w-100">
+        <mat-label>Usuario</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Ej: usuario123"
+          [(ngModel)]="form.username"
+          name="username"
+          required="true"
+        />
+        <mat-error>{{usernameError()}}</mat-error>
+      </mat-form-field>
+
+      <!-- Fullname -->
+      <mat-form-field class="w-100">
+        <mat-label>Nombre y apellidos</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Ej: Juan Pérez"
+          [(ngModel)]="form.fullname"
+          name="username"
+        />
+        <mat-error>{{fullnameError()}}</mat-error>
+      </mat-form-field>
+
+      <!-- Contraseña -->
+      <mat-form-field class="w-100">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          [(ngModel)]="form.password"
+          name="password"
+          required="true"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="'Mostrar/Ocultar contraseña'"
+          [attr.aria-pressed]="hidePassword()"
+          type="button"
+        >
+          <mat-icon>{{
+            hidePassword() ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+        <mat-error>{{passwordError()}}</mat-error>
+      </mat-form-field>
+
+      <!-- Confirmar Contraseña -->
+      <mat-form-field class="w-100">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          required="true"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="'Mostrar/Ocultar contraseña'"
+          [attr.aria-pressed]="hidePassword()"
+          type="button"
+        >
+          <mat-icon>{{
+            hidePassword() ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+        <mat-error>{{confirmPasswordError()}}</mat-error>
+      </mat-form-field>
+
+      <!-- Botón de inicio de sesión -->
+      <button type="submit" color="primary" class="w-100 mt-3" mat-fab extended>
+        Register
+      </button>
+    </form>
+
+    <!-- Redirect login -->
+    <div class="text-center mt-3">
+      ¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a>
+    </div>
+  </mat-card>
+</div>

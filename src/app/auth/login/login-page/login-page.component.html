@@ -1,0 +1,62 @@
+<div class="container w-50 mt-5">
+  <mat-card appearance="raised" class="p-4 shadow">
+    <h3 class="text-center mb-3 text-primary">Iniciar Sesión</h3>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="error" class="text-danger mb-3 text-center">
+      {{ error() }}
+    </div>
+
+    <form class="example-form" (ngSubmit)="login()">
+      <!-- Usuario -->
+      <mat-form-field class="w-100">
+        <mat-label>Usuario</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Ej: usuario123"
+          [(ngModel)]="form.username"
+          name="username"
+          required="true"
+        />
+        <mat-error>{{usernameError()}}</mat-error>
+      </mat-form-field>
+
+      <!-- Contraseña -->
+      <mat-form-field class="w-100">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          [(ngModel)]="form.password"
+          name="password"
+          required="true"
+          placeholder="Ej: 12345678"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="'Mostrar/Ocultar contraseña'"
+          [attr.aria-pressed]="hidePassword()"
+          type="button"
+        >
+          <mat-icon>{{
+            hidePassword() ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+        <mat-error>{{passwordError()}}</mat-error>
+      </mat-form-field>
+
+      <!-- Botón de inicio de sesión -->
+      <button type="submit" color="primary" class="w-100 mt-3" mat-fab extended>
+        Iniciar sesión
+      </button>
+    </form>
+
+    <!-- Redirect register -->
+    <div class="text-center mt-3">
+      ¿Aun no tienes ninguna cuenta? <a routerLink="/register">Regístrate aquí</a>
+    </div>
+  </mat-card>
+</div>
