@@ -57,4 +57,12 @@ export class AuthServiceService implements OnInit {
 
     return !!token && !!userId;
   }
+
+  getToken() {
+    return sessionStorage.getItem('token');
+  }
+
+  getUserId() {
+    return sessionStorage.getItem('userId');
+  }
 }

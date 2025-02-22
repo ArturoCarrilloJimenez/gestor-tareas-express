@@ -1,6 +1,7 @@
 export interface BasicTask {
   title: string;
   description: string;
+  userId?: string;
 }
 
 export interface Task extends BasicTask {

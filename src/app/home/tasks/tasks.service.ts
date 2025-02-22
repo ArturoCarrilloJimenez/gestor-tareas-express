@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Task } from './interface/task.interface';
+import { BasicTask, Task } from './interface/task.interface';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -28,6 +28,10 @@ export class TasksService {
       .subscribe((tasks: Task[]) => {
         this.tasks = tasks;
       });
+  }
+
+  createTask(task: BasicTask) {
+    return this.http.post(this.URL, task);
   }
 
   updateTask(task: Task) {

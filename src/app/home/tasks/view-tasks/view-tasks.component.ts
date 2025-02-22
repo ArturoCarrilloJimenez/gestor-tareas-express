@@ -1,5 +1,5 @@
 import { Task } from './../interface/task.interface';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { TasksService } from '../tasks.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +15,8 @@ export class ViewTasksComponent {
     return this.taskService.tasks;
   }
 
-  displayedColumns: string[] = ['title', 'description', 'completed'];
+  @Output()
+  emitter: EventEmitter<Task> = new EventEmitter();
 
   constructor(private taskService: TasksService) {}
 
@@ -37,5 +38,6 @@ export class ViewTasksComponent {
   }
 
   editTask(task: Task) {
+    this.emitter.emit(task);
   }
 }

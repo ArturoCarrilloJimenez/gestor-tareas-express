@@ -6,6 +6,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { provideHttpClient } from '@angular/common/http';
 import { AuthServiceService } from './auth/auth-service.service';
+import { TasksService } from './home/tasks/tasks.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     AuthServiceService,
+    TasksService
   ],
 };
