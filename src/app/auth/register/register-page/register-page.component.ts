@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../auth-service.service';
 
 @Component({
@@ -40,7 +40,10 @@ export class RegisterPageComponent {
 
   hidePassword = signal(true);
 
-  constructor(private authService: AuthServiceService) {}
+  constructor(
+    private authService: AuthServiceService,
+    private router: Router
+  ) {}
 
   togglePasswordVisibility() {
     this.hidePassword.set(!this.hidePassword());
@@ -62,6 +65,7 @@ export class RegisterPageComponent {
     }
     if (this.confirmPassword !== this.form.password) {
       this.confirmPasswordError.set('Passwords do not match');
+      this.error.set('Passwords do not match');
       error = true;
     }
     if (!error) {
@@ -82,6 +86,28 @@ export class RegisterPageComponent {
       return;
     }
 
-    this.authService.registerUser(this.form);
+    // Si no hay errores registra
+    this.authService.registerUser(this.form).subscribe({
+      next: () => {
+        // Si todo va bien intenta hacer login
+        this.authService.loginUser(this.form).subscribe({
+          next: (response) => {
+            // Hace login correctamente, redirige a home
+            this.router.navigateByUrl('');
+          },
+          error: (error) => {
+            // Algo falla al hacer login, redirige a login
+            console.error(error);
+            this.router.navigateByUrl('/login');
+          },
+        });
+      },
+      error: (error) => {
+        console.error(error);
+        this.error.set(
+          'Algo ha fallado al intentar regístrate, inténtalo mas tarde'
+        );
+      },
+    });
   }
 }

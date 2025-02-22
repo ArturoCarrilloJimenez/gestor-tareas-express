@@ -4,13 +4,29 @@
     <a routerLink="/" class="navbar-brand text-white">Tasks</a>
     <div>
       <!-- Authenticated -->
-      <button routerLink="/login" class="navbar-brand text-white btn d-flex justify-content-center">
+      <button
+        *ngIf="!isLogin(); else logaut"
+        routerLink="/login"
+        class="navbar-brand text-white btn d-flex justify-content-center"
+      >
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
           fontIcon="person"
         ></mat-icon>
       </button>
+      <ng-template #logaut>
+        <button
+          (click)="logout()"
+          class="navbar-brand text-white btn d-flex justify-content-center"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="exit_to_app"
+          ></mat-icon>
+        </button>
+      </ng-template>
     </div>
   </div>
 </mat-toolbar>

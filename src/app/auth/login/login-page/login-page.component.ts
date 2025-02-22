@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -37,7 +37,7 @@ export class LoginPageComponent {
 
   hidePassword = signal(true);
 
-  constructor(private authService: AuthServiceService) {}
+  constructor(private authService: AuthServiceService, private router: Router) {}
 
   togglePasswordVisibility() {
     this.hidePassword.set(!this.hidePassword());
@@ -66,6 +66,14 @@ export class LoginPageComponent {
       return;
     }
 
-    this.authService.loginUser(this.form);
+    this.authService.loginUser(this.form).subscribe({
+      next: (resp) => {
+        this.router.navigateByUrl('')
+      },
+      error: (error) => {
+        console.error(error);
+        this.error.set('Algo ha fallado, comprueba el usuario o contraseña que estén correctos');
+      }
+    })
   }
 }
