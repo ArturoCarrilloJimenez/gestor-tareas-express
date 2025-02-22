@@ -1,0 +1,40 @@
+<h3 class="text-center mt-3 text-primary">Tarea</h3>
+
+<!-- Mensaje de error -->
+<div *ngIf="error" class="text-danger mb-3 text-center">
+  {{ error() }}
+</div>
+
+<form class="example-form" (ngSubmit)="submit()">
+  <!-- Titulo -->
+  <mat-form-field class="w-100">
+    <mat-label>Titulo</mat-label>
+    <input
+      type="text"
+      matInput
+      placeholder="Ej: tarea1"
+      [(ngModel)]="form.title"
+      name="title"
+      required="true"
+    />
+    <mat-error>{{ titleError() }}</mat-error>
+  </mat-form-field>
+
+  <!-- Descripción -->
+  <mat-form-field class="w-100">
+    <mat-label>Descripción</mat-label>
+    <input
+      type="text"
+      matInput
+      placeholder="Ej: Este es un ejemplo de tarea"
+      [(ngModel)]="form.description"
+      name="description"
+    />
+  </mat-form-field>
+
+  <!-- Botón de inicio de sesión -->
+  <button type="submit" color="primary" class="w-100 mt-3" mat-fab extended>
+    <mat-icon>save</mat-icon>
+    <span>Guardar</span>
+  </button>
+</form>
